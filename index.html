@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Nasi Goreng Kekinian</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Gill Sans', Calibri, sans-serif;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 1rem;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: black;
+      text-decoration: none;
+    }
+
+    .navbar-menu {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar-menu a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-menu a:hover {
+      color: #e91e63;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/nasgor1.jpeg') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 4rem 1rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      padding: 2rem 0;
+    }
+
+    .menu-section h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #e91e63;
+      font-size: 2rem;
+    }
+
+    /* Tab Menu */
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: none;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tab-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .tab-btn span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .tab-btn:hover {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+
+    .tab-btn.active {
+      transform: scale(1.1);
+      border: 2px solid #yellow;
+    }
+
+    /* Background untuk setiap tombol */
+    .tab-btn[data-tab="nasi-goreng"] {
+      background-image: url('images/nasgor1.jpeg');
+    }
+
+    .tab-btn[data-tab="mie-goreng"] {
+      background-image: url('images/nasgor1.jpeg');
+    }
+
+    .tab-btn[data-tab="mie-rebus"] {
+      background-image: url('images/nasgor1.jpeg');
+    }
+
+    .tab-btn[data-tab="kwetiau-goreng"] {
+      background-image: url('images/nasgor1.jpeg');
+    }
+
+    .tab-btn[data-tab="kwetiau-rebus"] {
+      background-image: url('images/nasgor1.jpeg');
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      font-size: 0.9rem;
+      margin: 0.5rem;
+      color: #333;
+    }
+
+    .card p {
+      margin: 0 0.5rem;
+      font-weight: bold;
+      color: #e91e63;
+      font-size: 1rem;
+    }
+
+    .card .btn-wa {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      background-color: #25D366;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .card .btn-wa:hover {
+      background-color: #128c7e;
+    }
+
+    /* Testimonial Section */
+    .testimonials {
+      padding: 2rem 0;
+      background-color: #f9f9f9;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #e91e63;
+      font-size: 1.8rem;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .testimonial-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .testimonial-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial-card h4 {
+      font-size: 1rem;
+      color: #e91e63;
+    }
+
+    /* FAQ Section */
+    .faq {
+      padding: 2rem 0;
+    }
+
+    .faq h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #e91e63;
+      font-size: 1.8rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .faq-item h3 {
+      font-size: 1.1rem;
+      color: #333;
+      cursor: pointer;
+      padding: 1rem 0;
+      position: relative;
+    }
+
+    .faq-item h3::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      font-size: 1.2rem;
+    }
+
+    .faq-item.active h3::after {
+      content: '-';
+    }
+
+    .faq-item p {
+      display: none;
+      font-size: 0.9rem;
+      color: #555;
+      padding-bottom: 1rem;
+    }
+
+    .faq-item.active p {
+      display: block;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer p, .footer a {
+      font-size: 0.9rem;
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: #e91e63;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* WhatsApp Floating Button */
+    .wa-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      padding: 1rem;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+      font-size: 1.5rem;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.1);
+      background-color: #128c7e;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .footer .container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .tab-btn {
+        width: 80px;
+        height: 80px;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu-section h1, .testimonials h2, .faq h2 {
+        font-size: 1.3rem;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+      }
+
+      .tab-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 0.7rem;
+      }
+    }
+  
+#typing-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#cursor {
+  display: inline-block;
+  font-weight: bold;
+  color: #fff;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="navbar-logo">Nasi Goreng Kekinian</a>
+      <div class="hamburger">☰</div>
+      <div class="navbar-menu">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#testimonials">Testimoni</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Kontak</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home" data-aos="fade-up">
+    <div class="container">
+      <h1><span id="typing-text"></span><span id="cursor">|</span></h1>
+      <p>Pesan sekarang dan nikmati menu favoritmu dengan cita rasa modern.</p>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <h1>🔥 Pilih Menu Favoritmu 🔥</h1>
+      <div class="menu-tabs">
+        <button class="tab-btn active" data-tab="nasi-goreng"><span>Nasi Goreng</span></button>
+        <button class="tab-btn" data-tab="mie-goreng"><span>Mie Goreng</span></button>
+        <button class="tab-btn" data-tab="mie-rebus"><span>Mie Rebus</span></button>
+        <button class="tab-btn" data-tab="kwetiau-goreng"><span>Kwetiau Goreng</span></button>
+        <button class="tab-btn" data-tab="kwetiau-rebus"><span>Kwetiau Rebus</span></button>
+      </div>
+
+      <!-- Nasi Goreng -->
+      <div class="tab-content active" id="nasi-goreng">
+        <div class="grid-menu">
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor1.jpeg" alt="Nasi Goreng Original">
+            <h3>Nasi Goreng Original</h3>
+            <p>Rp 20.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Original" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor2.jpeg" alt="Nasi Goreng Gila">
+            <h3>Nasi Goreng Gila</h3>
+            <p>Rp 25.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Gila" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor3.jpeg" alt="Nasi Goreng Seafood">
+            <h3>Nasi Goreng Seafood</h3>
+            <p>Rp 30.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Seafood" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor4.jpeg" alt="Nasi Goreng Telur">
+            <h3>Nasi Goreng Telur</h3>
+            <p>Rp 18.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Telur" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor5.jpeg" alt="Nasi Goreng Ayam">
+            <h3>Nasi Goreng Ayam</h3>
+            <p>Rp 22.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Ayam" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor6.jpeg" alt="Nasi Goreng Sosis">
+            <h3>Nasi Goreng Sosis</h3>
+            <p>Rp 24.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Sosis" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor7.jpeg" alt="Nasi Goreng Rendang">
+            <h3>Nasi Goreng Rendang</h3>
+            <p>Rp 28.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Rendang" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor8.jpeg" alt="Nasi Goreng Pete">
+            <h3>Nasi Goreng Pete</h3>
+            <p>Rp 26.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Nasi%20Goreng%20Pete" target="_blank">Beli Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mie Goreng -->
+      <div class="tab-content" id="mie-goreng">
+        <div class="grid-menu">
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor1.jpeg" alt="Mie Goreng Original">
+            <h3>Mie Goreng Original</h3>
+            <p>Rp 18.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Original" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor2.jpeg" alt="Mie Goreng Gila">
+            <h3>Mie Goreng Gila</h3>
+            <p>Rp 23.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Gila" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor3.jpeg" alt="Mie Goreng Seafood">
+            <h3>Mie Goreng Seafood</h3>
+            <p>Rp 28.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Seafood" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor4.jpeg" alt="Mie Goreng Telur">
+            <h3>Mie Goreng Telur</h3>
+            <p>Rp 16.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Telur" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor5.jpeg" alt="Mie Goreng Ayam">
+            <h3>Mie Goreng Ayam</h3>
+            <p>Rp 20.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Ayam" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor6.jpeg" alt="Mie Goreng Sosis">
+            <h3>Mie Goreng Sosis</h3>
+            <p>Rp 22.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Sosis" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor7.jpeg" alt="Mie Goreng Rendang">
+            <h3>Mie Goreng Rendang</h3>
+            <p>Rp 26.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Rendang" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miegor8.jpeg" alt="Mie Goreng Pete">
+            <h3>Mie Goreng Pete</h3>
+            <p>Rp 24.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Goreng%20Pete" target="_blank">Beli Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mie Rebus -->
+      <div class="tab-content" id="mie-rebus">
+        <div class="grid-menu">
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb1.jpeg" alt="Mie Rebus Original">
+            <h3>Mie Rebus Original</h3>
+            <p>Rp 18.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Original" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb2.jpeg" alt="Mie Rebus Gila">
+            <h3>Mie Rebus Gila</h3>
+            <p>Rp 23.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Gila" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb3.jpeg" alt="Mie Rebus Seafood">
+            <h3>Mie Rebus Seafood</h3>
+            <p>Rp 28.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Seafood" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb4.jpeg" alt="Mie Rebus Telur">
+            <h3>Mie Rebus Telur</h3>
+            <p>Rp 16.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Telur" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb5.jpeg" alt="Mie Rebus Ayam">
+            <h3>Mie Rebus Ayam</h3>
+            <p>Rp 20.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Ayam" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb6.jpeg" alt="Mie Rebus Sosis">
+            <h3>Mie Rebus Sosis</h3>
+            <p>Rp 22.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Sosis" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb7.jpeg" alt="Mie Rebus Bakso">
+            <h3>Mie Rebus Bakso</h3>
+            <p>Rp 25.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Bakso" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/miereb8.jpeg" alt="Mie Rebus Tomyum">
+            <h3>Mie Rebus Tomyum</h3>
+            <p>Rp 27.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Mie%20Rebus%20Tomyum" target="_blank">Beli Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kwetiau Goreng -->
+      <div class="tab-content" id="kwetiau-goreng">
+        <div class="grid-menu">
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor1.jpeg" alt="Kwetiau Goreng Original">
+            <h3>Kwetiau Goreng Original</h3>
+            <p>Rp 20.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Original" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor2.jpeg" alt="Kwetiau Goreng Gila">
+            <h3>Kwetiau Goreng Gila</h3>
+            <p>Rp 25.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Gila" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor3.jpeg" alt="Kwetiau Goreng Seafood">
+            <h3>Kwetiau Goreng Seafood</h3>
+            <p>Rp 30.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Seafood" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor4.jpeg" alt="Kwetiau Goreng Telur">
+            <h3>Kwetiau Goreng Telur</h3>
+            <p>Rp 18.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Telur" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor5.jpeg" alt="Kwetiau Goreng Ayam">
+            <h3>Kwetiau Goreng Ayam</h3>
+            <p>Rp 22.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Ayam" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor6.jpeg" alt="Kwetiau Goreng Sosis">
+            <h3>Kwetiau Goreng Sosis</h3>
+            <p>Rp 24.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Sosis" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor7.jpeg" alt="Kwetiau Goreng Rendang">
+            <h3>Kwetiau Goreng Rendang</h3>
+            <p>Rp 28.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Rendang" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/kwetiaugor8.jpeg" alt="Kwetiau Goreng Pete">
+            <h3>Kwetiau Goreng Pete</h3>
+            <p>Rp 26.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Goreng%20Pete" target="_blank">Beli Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kwetiau Rebus -->
+      <div class="tab-content" id="kwetiau-rebus">
+        <div class="grid-menu">
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor1.jpeg" alt="Kwetiau Rebus Original">
+            <h3>Kwetiau Rebus Original</h3>
+            <p>Rp 20.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Original" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor2.jpeg" alt="Kwetiau Rebus Gila">
+            <h3>Kwetiau Rebus Gila</h3>
+            <p>Rp 25.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Gila" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor3.jpeg" alt="Kwetiau Rebus Seafood">
+            <h3>Kwetiau Rebus Seafood</h3>
+            <p>Rp 30.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Seafood" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor4.jpeg" alt="Kwetiau Rebus Telur">
+            <h3>Kwetiau Rebus Telur</h3>
+            <p>Rp 18.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Telur" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor5.jpeg" alt="Kwetiau Rebus Ayam"
+            nasgor5.jpeg" alt="Kwetiau Rebus Ayam">
+            <h3>Kwetiau Rebus Ayam</h3>
+            <p>Rp 22.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Ayam" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor6.jpeg" alt="Kwetiau Rebus Sosis">
+            <h3>Kwetiau Rebus Sosis</h3>
+            <p>Rp 24.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Sosis" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor7.jpeg" alt="Kwetiau Rebus Bakso">
+            <h3>Kwetiau Rebus Bakso</h3>
+            <p>Rp 27.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Bakso" target="_blank">Beli Sekarang</a>
+          </div>
+          <div class="card" data-aos="zoom-in">
+            <img src="images/nasgor8.jpeg" alt="Kwetiau Rebus Tomyum">
+            <h3>Kwetiau Rebus Tomyum</h3>
+            <p>Rp 29.000</p>
+            <a class="btn-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20Kwetiau%20Rebus%20Tomyum" target="_blank">Beli Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <h2 data-aos="fade-up">Apa Kata Pelanggan Kami</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card" data-aos="fade-right">
+          <p>"Nasi gorengnya enak banget, porsinya pas, dan pengirimannya cepat!"</p>
+          <h4>Rina, Jakarta</h4>
+        </div>
+        <div class="testimonial-card" data-aos="fade-left">
+          <p>"Rasa modern tapi tetap autentik, favoritku yang seafood!"</p>
+          <h4>Adi, Bandung</h4>
+        </div>
+        <div class="testimonial-card" data-aos="fade-right">
+          <p>"Harga terjangkau, kualitas premium. Pasti pesan lagi!"</p>
+          <h4>Siti, Surabaya</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 data-aos="fade-up">Pertanyaan Umum</h2>
+      <div class="faq-item" data-aos="fade-up">
+        <h3>Apa saja metode pembayaran yang tersedia?</h3>
+        <p>Kami menerima pembayaran via transfer bank, QRIS, dan COD.</p>
+      </div>
+      <div class="faq-item" data-aos="fade-up">
+        <h3>Berapa lama waktu pengiriman?</h3>
+        <p>Pengiriman memakan waktu 30-60 menit tergantung lokasi.</p>
+      </div>
+      <div class="faq-item" data-aos="fade-up">
+        <h3>Apakah ada minimal order?</h3>
+        <p>Tidak ada minimal order, pesan sesukamu!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div>
+        <h3>Kontak Kami</h3>
+        <p>WhatsApp: <a href="https://wa.me/6281234567890">081234567890</a></p>
+        <p>Email: nasigorengkekinian@example.com</p>
+      </div>
+      <div>
+        <h3>Lokasi</h3>
+        <p>Jl. Rasa Nikmat No. 123, Jakarta</p>
+      </div>
+      <div>
+        <h3>Ikuti Kami</h3>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20pesan%20menu%20nasi%20goreng!" class="wa-float" target="_blank">📞</a>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navbarMenu = document.querySelector('.navbar-menu');
+
+    hamburger.addEventListener('click', () => {
+      navbarMenu.classList.toggle('active');
+      hamburger.textContent = navbarMenu.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.querySelector('h3').addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+
+    // Tab Menu Toggle
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        document.getElementById(button.dataset.tab).classList.add('active');
+
+        // Re-trigger AOS animations
+        AOS.refresh();
+      });
+    });
+  </script>
+
+<script>
+  const typingText = document.getElementById("typing-text");
+  const textToType = "Rasakan Nikmatnya Nasi Goreng Kekinian, Rasakan juga Menu Lainnya!";
+  let index = 0;
+
+  function typeEffect() {
+    if (index < textToType.length) {
+      typingText.textContent += textToType.charAt(index);
+      index++;
+      setTimeout(typeEffect, 80);
+    } else {
+      setTimeout(() => {
+        typingText.textContent = "";
+        index = 0;
+        typeEffect();
+      }, 2000); // jeda 2 detik sebelum mengulang
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", typeEffect);
+</script>
+
+<audio id="bg-audio" loop>
+  <source src="audio/nasgorbacksound.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById("bg-audio");
+
+  // Play audio setelah klik pertama di mana saja di halaman
+  document.addEventListener("click", () => {
+    audio.play();
+  }, { once: true }); // hanya sekali
+</script>
+
+
+</body>
+</html>
