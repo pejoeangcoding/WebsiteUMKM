@@ -932,6 +932,19 @@
   }, { once: true }); // hanya sekali
 </script>
 
+document.getElementById('order-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const nama = e.target.nama.value;
 
+  const res = await fetch('/api/order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nama })
+  });
+
+  const data = await res.json();
+  document.getElementById('respon').textContent = data?.pesan || 'Terjadi kesalahan.';
+});
+  
 </body>
 </html>
