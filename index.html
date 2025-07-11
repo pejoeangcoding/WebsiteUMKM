@@ -477,22 +477,6 @@
     </div>
   </nav>
 
-  <!-- Hero / Katalog -->
-  <section class="hero">
-    <h1>Selamat Datang</h1>
-    <p>Klik tombol di bawah untuk order</p>
-  </section>
-
-  <!-- ✍️ FORM PEMESANAN -->
-  <section class="form-section" style="padding: 2rem;">
-    <h2>Form Order Cepat</h2>
-    <form id="order-form">
-      <input type="text" name="nama" placeholder="Nama Lengkap" required />
-      <button type="submit">Kirim Pesanan</button>
-    </form>
-    <p id="respon" style="margin-top: 1rem; font-weight: bold;"></p>
-  </section>
-
   <!-- SCRIPTS -->
   <script src="script.js"></script>
 
@@ -500,7 +484,7 @@
   <section class="hero" id="home" data-aos="fade-up">
     <div class="container">
       <h1><span id="typing-text"></span><span id="cursor">|</span></h1>
-      <p>Pesan sekarang dan nikmati menu favoritmu dengan cita rasa modern.</p>
+      <p>Pesan sekarang dan nikmati menu favoritmu dengan cita raa modern.</p>
     </div>
   </section>
 
@@ -912,7 +896,7 @@
         typingText.textContent = "";
         index = 0;
         typeEffect();
-      }, 2000); // jeda 2 detik sebelum mengulang
+      }, 1000); // jeda 2 detik sebelum mengulang
     }
   }
 
@@ -931,20 +915,6 @@
     audio.play();
   }, { once: true }); // hanya sekali
 </script>
-
-document.getElementById('order-form')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const nama = e.target.nama.value;
-
-  const res = await fetch('/api/order', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nama })
-  });
-
-  const data = await res.json();
-  document.getElementById('respon').textContent = data?.pesan || 'Terjadi kesalahan.';
-});
   
 </body>
 </html>
