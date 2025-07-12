@@ -462,6 +462,33 @@
 </style>
 </head>
 <body>
+
+  <script>
+  document.getElementById("orderForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+      name: form.name.value,
+      menu: form.menu.value,
+      phone: form.phone.value
+    };
+
+    try {
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      document.getElementById("formStatus").textContent = result.message || "Pesanan berhasil dikirim!";
+      form.reset();
+    } catch (err) {
+      document.getElementById("formStatus").textContent = "Gagal mengirim. Silakan coba lagi.";
+    }
+  });
+</script>
   <!-- Navbar -->
   <nav class="navbar">
     <div class="container">
